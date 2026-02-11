@@ -1,19 +1,16 @@
-      - name: Force Build Luxurious App
+      - name: Real Production Build
         run: |
-          # إنشاء مجلد الويب
-          mkdir -p dist
+          # 1. تثبيت المكتبات (ضروري لتحويل الأكواد)
+          npm install
           
-          # نسخ ملف الواجهة الرئيسي
-          cp index.html dist/ 2>/dev/null || true
+          # 2. تشغيل عملية البناء الحقيقية لـ Vite/React
+          npm run build
           
-          # نسخ المكونات البرمجية التي سألت عنها (src و components)
-          if [ -d "src" ]; then
-            cp -r src/* dist/
-            echo "Successfully copied src content"
-          fi
-          
-          # التأكد من دمج ملفات الـ TypeScript المحولة (إذا وجدت)
-          cp *.tsx dist/ 2>/dev/null || true
-          
-          # التحقق من أن حجم المجلد dist زاد قبل المزامنة
-          du -sh dist/
+          # 3. التأكد من أن المجلد الناتج (غالباً dist) ممتلئ
+          ls -la dist/
+
+      - name: Sync to Android
+        run: |
+          # الآن Capacitor سيأخذ الملفات "المبنية" فعلياً وليس مجرد أكواد خام
+          npx cap sync android
+
