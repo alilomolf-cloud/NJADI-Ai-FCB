@@ -1,7 +1,10 @@
       - name: Build Web Production Bundle
         run: |
+          # إنشاء المجلد المطلوب
           mkdir -p dist
+          # نسخ ملفاتك الأساسية إلى داخل المجلد
           cp index.html dist/
-          cp -r *.tsx dist/ 2>/dev/null || true
           cp -r src dist/ 2>/dev/null || true
-          npm run build --if-present
+          cp -r components dist/ 2>/dev/null || true
+          # التأكد من وجود ملف index في المجلد لكي يراه Capacitor
+          ls -R dist/
