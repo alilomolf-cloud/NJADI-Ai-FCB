@@ -1,10 +1,10 @@
-      - name: Build Web Production Bundle
+      - name: Auto-Detect and Prepare Assets
         run: |
-          # إنشاء المجلد المطلوب
           mkdir -p dist
-          # نسخ ملفاتك الأساسية إلى داخل المجلد
-          cp index.html dist/
-          cp -r src dist/ 2>/dev/null || true
-          cp -r components dist/ 2>/dev/null || true
-          # التأكد من وجود ملف index في المجلد لكي يراه Capacitor
+          # البحث عن ملف index.html في أي مكان ونسخه لـ dist
+          find . -name "index.html" -exec cp {} dist/ \;
+          # البحث عن المجلدات البرمجية ونسخها
+          [ -d "src" ] && cp -r src dist/ || echo "src not found"
+          [ -d "components" ] && cp -r components dist/ || echo "components not found"
+          # التأكد من أن المجلد ليس فارغاً
           ls -R dist/
