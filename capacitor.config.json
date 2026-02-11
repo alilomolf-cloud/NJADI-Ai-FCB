@@ -1,8 +1,7 @@
-
 {
   "appId": "com.fnjadi.luxurious.app",
   "appName": "F NJADI",
-  "webDir": ".",
+  "webDir": "dist",
   "bundledWebRuntime": false,
   "server": {
     "androidScheme": "https"
